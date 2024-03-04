@@ -38,7 +38,7 @@ public class MovementService {
 	/**
 	 * Constructor
 	 */
-	public MovementService() {
+	private MovementService() {
 		
 	}
 
@@ -47,7 +47,7 @@ public class MovementService {
 	 * @param shifts
 	 * @throws Exception 
 	 */
-	public static void move(Map map, List<Adventurer> adventurers, Adventurer adventurer, Movement movement) throws Exception {
+	public static void move(Map map, List<Adventurer> adventurers, Adventurer adventurer, Movement movement) {
 		switch (movement) {
 		case FORWARD:
 			moveForward(map, adventurer, adventurers);
@@ -58,8 +58,6 @@ public class MovementService {
 		case RIGHT:
 			turnRight(adventurer);
 			break;
-		default:
-			throw new Exception("Move incorrect");
 		}
 	}
 	
@@ -68,7 +66,7 @@ public class MovementService {
 	 * @param adventurer
 	 * @throws Exception
 	 */
-	private static void moveForward(Map map, Adventurer adventurer, List<Adventurer> adventurers) throws Exception {
+	private static void moveForward(Map map, Adventurer adventurer, List<Adventurer> adventurers) {
 		int newX = adventurer.getPosX();
         int newY = adventurer.getPosY();
 
@@ -86,6 +84,8 @@ public class MovementService {
             case CHAR_WEST:
                 newX--;
                 break;
+            default :
+            	 break;
         }
 
         // Check if the new coordinates are valid on the map
@@ -104,7 +104,7 @@ public class MovementService {
      * @param adventurer
      * @throws Exception
      */
-    public static void turnLeft(Adventurer adventurer) throws Exception {
+    public static void turnLeft(Adventurer adventurer) {
         switch (adventurer.getOrientation()) {
         case CHAR_NORD:
         	adventurer.setOrientation(CHAR_WEST);
@@ -119,7 +119,7 @@ public class MovementService {
         	adventurer.setOrientation(CHAR_SOUTH);
             break;
         default:
-        	throw new Exception("Move incorrect");
+        	break;
         }
     }
 
@@ -128,7 +128,7 @@ public class MovementService {
      * @param adventurer
      * @throws Exception
      */
-    public static void turnRight(Adventurer adventurer) throws Exception {
+    public static void turnRight(Adventurer adventurer) {
     	switch (adventurer.getOrientation()) {
     	case CHAR_NORD:
     		adventurer.setOrientation(CHAR_EAST);
@@ -143,7 +143,7 @@ public class MovementService {
     		adventurer.setOrientation(CHAR_NORD);
     		break;
     	default:
-    		throw new Exception("Move incorrect");
+    		break;
     	}
     }
     

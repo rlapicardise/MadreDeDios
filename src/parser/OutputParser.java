@@ -5,6 +5,7 @@ package parser;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import model.Adventurer;
@@ -25,13 +26,19 @@ import model.Map;
 public class OutputParser {
 	
 	/**
+	 * Constructor
+	 */
+	private OutputParser() {}
+	
+	/**
 	 * Method to write output data in a file
 	 * @param map
 	 * @param adventurers
 	 * @param filename
+	 * @throws IOException 
 	 * @throws Exception
 	 */
-	public static void parseOutput(Map map, List<Adventurer> adventurers, String filename) throws Exception {
+	public static void parseOutput(Map map, List<Adventurer> adventurers, String filename) throws IOException  {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             // Write map dimensions
             writer.write("C - " + map.getWidth() + " - " + map.getHeight());

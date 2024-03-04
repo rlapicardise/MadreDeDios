@@ -4,6 +4,7 @@
 package parser;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,9 +55,11 @@ public class InputParser {
 	 * Method to read input data from a file
 	 * @param filename
 	 * @return
+	 * @throws IOException 
+	 * @throws  
 	 * @throws Exception
 	 */
-    public static List<Object> parseInput(String filename) throws Exception {
+    public static List<Object> parseInput(String filename) throws IllegalArgumentException, IOException {
         List<Object> inputObjects = new ArrayList<>();
     	Map map = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -80,7 +83,7 @@ public class InputParser {
                                 inputObjects.add(parseAdventurer(parts));
                                 break;
                             default:
-                                throw new Exception("Unrecognized type");
+                            	break;
                         }
                     }
                 }
@@ -107,9 +110,9 @@ public class InputParser {
      * @param parts
      * @throws Exception
      */
-    private static void parseMountain(Map map, String[] parts) throws Exception {
+    private static void parseMountain(Map map, String[] parts) throws IllegalArgumentException {
     	if (map == null) {
-    		throw new Exception("Map sould be defined.");
+    		throw new IllegalArgumentException("Map sould be defined.");
     	}
     	int x = Integer.parseInt(parts[1]);
         int y = Integer.parseInt(parts[2]);
@@ -122,9 +125,9 @@ public class InputParser {
      * @param parts
      * @throws Exception
      */
-    private static void parseTreasure(Map map, String[] parts) throws Exception {
+    private static void parseTreasure(Map map, String[] parts) throws IllegalArgumentException {
     	if (map == null) {
-    		throw new Exception("Map sould be defined.");
+    		throw new IllegalArgumentException("Map sould be defined.");
     	}
     	int x = Integer.parseInt(parts[1]);
         int y = Integer.parseInt(parts[2]);

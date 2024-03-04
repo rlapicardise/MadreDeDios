@@ -21,15 +21,26 @@ import service.MovementService;
  * @version $Revision: 1.0 $ $Date: 1 mars 2024 16:23:08 $
  */
 public class Main {
+	
+	/**
+	 * Input file name
+	 */
+	static final String INPUT_FILE_NAME = "input.txt";
+	
+	/**
+	 * Output file name
+	 */
+	static final String OUTPUT_FILE_NAME = "output.txt";
 
 	/**
+	 * Main function
 	 * @param args
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
 
 		// Read input data from file
-		List<Object> inputObjects = InputParser.parseInput("input.txt");
+		List<Object> inputObjects = InputParser.parseInput(INPUT_FILE_NAME);
 
 		// Process read objects (map and adventurers)
 		Map map = null;
@@ -58,7 +69,7 @@ public class Main {
         }
 
 		// Process write output file
-		OutputParser.parseOutput(map, adventurers, "output.txt");
+		OutputParser.parseOutput(map, adventurers, OUTPUT_FILE_NAME);
 	}
 	
 	/**

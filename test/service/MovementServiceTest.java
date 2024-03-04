@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import model.Adventurer;
 import model.Map;
 import model.Movement;
-import service.MovementService;
 
 /**
  * ***************************************************************<br>
@@ -31,10 +30,10 @@ import service.MovementService;
 class MovementServiceTest {
 
 	@Test
-    public void testMoveForward() throws Exception {
+    public void testMoveForward() {
         Map map = new Map(5, 5);
         List<Adventurer> adventurers = new ArrayList<>();
-        Adventurer adventurer = new Adventurer("Indiana", 1, 1, 'N', new ArrayList<>());
+        Adventurer adventurer = new Adventurer("Romain", 1, 1, 'N', new ArrayList<>());
         adventurers.add(adventurer);
 
         // Test moving forward from (1,1) facing North
@@ -52,7 +51,7 @@ class MovementServiceTest {
     }
 
     @Test
-    public void testTurnLeft() throws Exception {
+    public void testTurnLeft() {
         Adventurer adventurer = new Adventurer("Lara", 1, 1, 'N', new ArrayList<>());
 
         // Test turning left when facing North
@@ -66,7 +65,7 @@ class MovementServiceTest {
     }
 
     @Test
-    public void testTurnRight() throws Exception {
+    public void testTurnRight() {
         Adventurer adventurer = new Adventurer("Nathan", 1, 1, 'N', new ArrayList<>());
 
         // Test turning right when facing North
@@ -80,11 +79,11 @@ class MovementServiceTest {
     }
     
     @Test
-    public void testMoveForwardWithMountain() throws Exception {
+    public void testMoveForwardWithMountain() {
         Map map = new Map(5, 5);
         map.getCase(1, 0).setMountain(true); // Place a mountain at (1, 0)
         List<Adventurer> adventurers = new ArrayList<>();
-        Adventurer adventurer = new Adventurer("Indiana", 1, 1, 'N', new ArrayList<>());
+        Adventurer adventurer = new Adventurer("Hanae", 1, 1, 'N', new ArrayList<>());
         adventurers.add(adventurer);
 
         // Test moving forward from (1,1) facing North with a mountain at (1,0)
@@ -94,7 +93,7 @@ class MovementServiceTest {
     }
 
     @Test
-    public void testMoveForwardWithAnotherAdventurer() throws Exception {
+    public void testMoveForwardWithAnotherAdventurer() {
         Map map = new Map(5, 5);
         List<Adventurer> adventurers = new ArrayList<>();
         Adventurer adventurer1 = new Adventurer("Lara", 1, 1, 'N', new ArrayList<>());
@@ -109,7 +108,7 @@ class MovementServiceTest {
     }
 
     @Test
-    public void testMoveForwardOutOfMap() throws Exception {
+    public void testMoveForwardOutOfMap() {
         Map map = new Map(5, 5);
         List<Adventurer> adventurers = new ArrayList<>();
         Adventurer adventurer = new Adventurer("Indiana", 4, 4, 'E', new ArrayList<>());
@@ -122,7 +121,7 @@ class MovementServiceTest {
     }
     
     @Test
-    public void testMoveForwardWithTreasure() throws Exception {
+    public void testMoveForwardWithTreasure() {
         Map map = new Map(5, 5);
         List<Adventurer> adventurers = new ArrayList<>();
         Adventurer adventurer = new Adventurer("Indiana", 1, 1, 'N', new ArrayList<>());

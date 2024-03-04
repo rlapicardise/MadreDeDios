@@ -7,6 +7,7 @@ package parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ class OutputParserTest {
         }
 
         // Suppression du fichier après les tests
-        java.io.File file = new java.io.File(filename);
+        File file = new File(filename);
         if (file.exists()) {
             file.delete();
         }
