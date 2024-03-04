@@ -20,7 +20,7 @@ This project simulates adventurers exploring a treasure map. It reads input data
    java Main
    ```
 
-   Replace `input.txt` with the path to your input file and `output.txt` with the desired output file path.
+   `input.txt` is the input file and `output.txt` the output file.
 
 ## Input Format
 
