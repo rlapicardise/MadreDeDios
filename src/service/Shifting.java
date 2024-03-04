@@ -53,7 +53,7 @@ public class Shifting {
 	 * @param shifts
 	 * @throws Exception 
 	 */
-	public void move(Map map, Adventurer adventurer) throws Exception {
+	public static void move(Map map, Adventurer adventurer) throws Exception {
         for (char shift : adventurer.getShifts()) {
             switch (shift) {
                 case CHAR_FORWARD:
@@ -83,13 +83,13 @@ public class Shifting {
         // Determine the new coordinates based on orientation
         switch (adventurer.getOrientation()) {
             case CHAR_NORD:
-                newY++;
+                newY--;
                 break;
             case CHAR_EAST:
                 newX++;
                 break;
             case CHAR_SOUTH:
-                newY--;
+                newY++;
                 break;
             case CHAR_WEST:
                 newX--;
@@ -174,8 +174,8 @@ public class Shifting {
     private static void collectTreasure(Case newCase, Adventurer adventurer) {
         int numberOfTreasures = newCase.getNumberOfTreasures();
         if (numberOfTreasures > 0) {
-            adventurer.setNumberOfTreasure(adventurer.getNumberOfTreasure() + numberOfTreasures);
-            newCase.setNumberOfTreasures(0);
+            adventurer.setNumberOfTreasure(adventurer.getNumberOfTreasure() + 1);
+            newCase.setNumberOfTreasures(numberOfTreasures -1);
         }
     }
 }

@@ -152,7 +152,7 @@ public class Adventurer {
 	 */
 	public String display() {
         return "{A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Nb. trésors ramassés}" + "\n" +
-                "A - " + name + " - " + posX + " - " + posY + " - " + orientation;
+                "A - " + name + " - " + posX + " - " + posY + " - " + orientation + " - " + numberOfTreasure;
     }
 
 }

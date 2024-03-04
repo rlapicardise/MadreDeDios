@@ -5,6 +5,7 @@ import model.Adventurer;
 import model.Map;
 import parser.InputParser;
 import parser.OutputParser;
+import service.Shifting;
 
 /**
  * ***************************************************************<br>
@@ -38,6 +39,11 @@ public class Main {
 			} else if (obj instanceof Adventurer) {
 				adventurers.add((Adventurer) obj);
 			}
+		}
+		
+		// Shifting of the adventurers
+		for (Adventurer adventurer : adventurers) {
+			Shifting.move(map, adventurer);
 		}
 
 		// Process write output file

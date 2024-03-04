@@ -55,7 +55,7 @@ public class Map {
 	}
 	
 	/**
-	 * Get theheight of the map
+	 * Get the height of the map
 	 * @return
 	 */
 	public int getHeight() {
