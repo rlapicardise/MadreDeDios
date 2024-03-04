@@ -44,6 +44,12 @@ public class Adventurer {
 	 */
 	private List<Character> shifts;
 	
+	
+	/**
+	 * Number of treasure
+	 */
+	private int numberOfTreasure;
+	
 	/**
 	 * @return the name
 	 */
@@ -115,6 +121,20 @@ public class Adventurer {
 	}
 
 	
+	/**
+	 * @return the numberOfTreasure
+	 */
+	public int getNumberOfTreasure() {
+		return numberOfTreasure;
+	}
+
+	/**
+	 * @param numberOfTreasure the numberOfTreasure to set
+	 */
+	public void setNumberOfTreasure(int numberOfTreasure) {
+		this.numberOfTreasure = numberOfTreasure;
+	}
+
 	/**
 	 * Constructor
 	 */

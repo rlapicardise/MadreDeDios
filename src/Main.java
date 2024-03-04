@@ -4,6 +4,7 @@ import java.util.List;
 import model.Adventurer;
 import model.Map;
 import parser.InputParser;
+import parser.OutputParser;
 
 /**
  * ***************************************************************<br>
@@ -39,15 +40,8 @@ public class Main {
 			}
 		}
 
-        if (map != null && !adventurers.isEmpty()) {
-        	System.out.println("it works " + map);
-        	adventurers.forEach(adv -> {
-        		System.out.println(adv.display());
-        	});
-        } else {
-            System.out.println("Erreur : les données d'entrée ne sont pas complètes.");
-        }
-
+		// Process write output file
+		OutputParser.parseOutput(map, adventurers, "output.txt");
 	}
 
 }

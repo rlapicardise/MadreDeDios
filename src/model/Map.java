@@ -45,4 +45,20 @@ public class Map {
 	public Case getCase(int x, int y) {
         return cases[x][y];
     }
+	
+	/**
+	 * Get the width of the map
+	 * @return
+	 */
+	public int getWidth() {
+		return cases.length;
+	}
+	
+	/**
+	 * Get theheight of the map
+	 * @return
+	 */
+	public int getHeight() {
+		return cases[0].length;
+	}
 }

@@ -4,6 +4,8 @@
 package service;
 
 import model.Adventurer;
+import model.Case;
+import model.Map;
 
 /**
  * ***************************************************************<br>
@@ -29,6 +31,17 @@ public class Shifting {
 	static final char CHAR_RIGHT = 'D';
 	
 	/**
+	 * Constants of orientations
+	 */
+	static final char CHAR_NORD = 'N';
+
+	static final char CHAR_SOUTH = 'S';
+
+	static final char CHAR_EAST = 'E';
+
+	static final char CHAR_WEST = 'W';
+	
+	/**
 	 * Constructor
 	 */
 	public Shifting() {
@@ -40,11 +53,11 @@ public class Shifting {
 	 * @param shifts
 	 * @throws Exception 
 	 */
-	public void move(Adventurer adventurer) throws Exception {
+	public void move(Map map, Adventurer adventurer) throws Exception {
         for (char shift : adventurer.getShifts()) {
             switch (shift) {
                 case CHAR_FORWARD:
-                    moveForward(adventurer);
+                    moveForward(map, adventurer);
                     break;
                 case CHAR_LEFT:
                     turnLeft(adventurer);
@@ -63,22 +76,34 @@ public class Shifting {
 	 * @param adventurer
 	 * @throws Exception
 	 */
-	private static void moveForward(Adventurer adventurer) throws Exception {
+	private static void moveForward(Map map, Adventurer adventurer) throws Exception {
+		int newX = adventurer.getPosX();
+        int newY = adventurer.getPosY();
+
+        // Determine the new coordinates based on orientation
         switch (adventurer.getOrientation()) {
-            case 'N':
-            	adventurer.setPosY(adventurer.getPosY() + 1);
+            case CHAR_NORD:
+                newY++;
                 break;
-            case 'E':
-            	adventurer.setPosX(adventurer.getPosX() + 1);
+            case CHAR_EAST:
+                newX++;
                 break;
-            case 'S':
-            	adventurer.setPosY(adventurer.getPosY() - 1);
+            case CHAR_SOUTH:
+                newY--;
                 break;
-            case 'W':
-            	adventurer.setPosX(adventurer.getPosX() - 1);
+            case CHAR_WEST:
+                newX--;
                 break;
-            default:
-            	throw new Exception("Move incorrect");
+        }
+
+        // Check if the new coordinates are valid on the map
+        if (isValidPosition(map, newX, newY)) {
+            Case newCase = map.getCase(newX, newY);
+            if (!newCase.isMountain()) {
+                adventurer.setPosX(newX);
+                adventurer.setPosY(newY);
+                collectTreasure(newCase, adventurer);
+            }
         }
     }
 
@@ -89,17 +114,17 @@ public class Shifting {
      */
     private static void turnLeft(Adventurer adventurer) throws Exception {
         switch (adventurer.getOrientation()) {
-        case 'N':
-        	adventurer.setOrientation('W');
+        case CHAR_NORD:
+        	adventurer.setOrientation(CHAR_WEST);
             break;
-        case 'E':
-        	adventurer.setOrientation('N');
+        case CHAR_EAST:
+        	adventurer.setOrientation(CHAR_NORD);
             break;
-        case 'S':
-        	adventurer.setOrientation('E');
+        case CHAR_SOUTH:
+        	adventurer.setOrientation(CHAR_EAST);
             break;
-        case 'W':
-        	adventurer.setOrientation('S');
+        case CHAR_WEST:
+        	adventurer.setOrientation(CHAR_SOUTH);
             break;
         default:
         	throw new Exception("Move incorrect");
@@ -113,20 +138,44 @@ public class Shifting {
      */
     private static void turnRight(Adventurer adventurer) throws Exception {
     	switch (adventurer.getOrientation()) {
-    	case 'N':
-    		adventurer.setOrientation('E');
+    	case CHAR_NORD:
+    		adventurer.setOrientation(CHAR_EAST);
     		break;
-    	case 'E':
-    		adventurer.setOrientation('S');
+    	case CHAR_EAST:
+    		adventurer.setOrientation(CHAR_SOUTH);
     		break;
-    	case 'S':
-    		adventurer.setOrientation('W');
+    	case CHAR_SOUTH:
+    		adventurer.setOrientation(CHAR_WEST);
     		break;
-    	case 'W':
-    		adventurer.setOrientation('N');
+    	case CHAR_WEST:
+    		adventurer.setOrientation(CHAR_NORD);
     		break;
     	default:
     		throw new Exception("Move incorrect");
     	}
+    }
+    
+    /**
+     * Check is the position is valid (in the map)
+     * @param map
+     * @param x
+     * @param y
+     * @return
+     */
+    private static boolean isValidPosition(Map map, int x, int y) {
+        return x >= 0 && x < map.getWidth() && y >= 0 && y < map.getHeight();
+    }
+
+    /**
+     * Collect the treasure of the case for the adventurer
+     * @param newCase
+     * @param adventurer
+     */
+    private static void collectTreasure(Case newCase, Adventurer adventurer) {
+        int numberOfTreasures = newCase.getNumberOfTreasures();
+        if (numberOfTreasures > 0) {
+            adventurer.setNumberOfTreasure(adventurer.getNumberOfTreasure() + numberOfTreasures);
+            newCase.setNumberOfTreasures(0);
+        }
     }
 }
