@@ -1,4 +1,4 @@
-# Exercice pratique - La carte aux trésors
+# Practical exercise - The treasure map
 
 This project simulates adventurers exploring a treasure map. It reads input data from a file, simulates the movements of adventurers, and generates an output file with the final state of the simulation.
 
