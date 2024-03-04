@@ -104,7 +104,7 @@ public class MovementService {
      * @param adventurer
      * @throws Exception
      */
-    private static void turnLeft(Adventurer adventurer) throws Exception {
+    public static void turnLeft(Adventurer adventurer) throws Exception {
         switch (adventurer.getOrientation()) {
         case CHAR_NORD:
         	adventurer.setOrientation(CHAR_WEST);
@@ -128,7 +128,7 @@ public class MovementService {
      * @param adventurer
      * @throws Exception
      */
-    private static void turnRight(Adventurer adventurer) throws Exception {
+    public static void turnRight(Adventurer adventurer) throws Exception {
     	switch (adventurer.getOrientation()) {
     	case CHAR_NORD:
     		adventurer.setOrientation(CHAR_EAST);

@@ -40,10 +40,9 @@ public class Adventurer {
 	private char orientation;
 	
 	/**
-	 * Shifts of the adventurer
+	 * Movements of the adventurer
 	 */
-	private List<Character> shifts;
-	
+	private List<Movement> movements;
 	
 	/**
 	 * Number of treasure
@@ -106,21 +105,21 @@ public class Adventurer {
 		this.orientation = orientation;
 	}
 
-	/**
-	 * @return the shifts
-	 */
-	public List<Character> getShifts() {
-		return shifts;
-	}
-
-	/**
-	 * @param shifts the shifts to set
-	 */
-	public void setShifts(List<Character> shifts) {
-		this.shifts = shifts;
-	}
-
 	
+	/**
+	 * @return the movements
+	 */
+	public List<Movement> getMovements() {
+		return movements;
+	}
+
+	/**
+	 * @param movements the movements to set
+	 */
+	public void setMovements(List<Movement> movements) {
+		this.movements = movements;
+	}
+
 	/**
 	 * @return the numberOfTreasure
 	 */
@@ -138,12 +137,12 @@ public class Adventurer {
 	/**
 	 * Constructor
 	 */
-	public Adventurer(String name, int posX, int posY, char orientation, List<Character> shifts) {
+	public Adventurer(String name, int posX, int posY, char orientation, List<Movement> shifts) {
 		this.name = name;
 		this.posX = posX;
 		this.posY = posY;
 		this.orientation = orientation;
-		this.shifts = shifts;
+		this.movements = shifts;
 	}
 	
 	/**
