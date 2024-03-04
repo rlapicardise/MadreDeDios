@@ -20,7 +20,7 @@ public class Map {
 	/**
 	 * Cases of the map
 	 */
-	private Case[][] cases;	
+	private Case[][] cases;
 	
 	/**
 	 * Constructor of the map
@@ -43,6 +43,9 @@ public class Map {
 	 * @return
 	 */
 	public Case getCase(int x, int y) {
+		if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
+	        throw new IllegalArgumentException("Coordinates (" + x + ", " + y + ") are outside the bounds of the map.");
+	    }
         return cases[x][y];
     }
 	

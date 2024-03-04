@@ -3,15 +3,18 @@
  */
 package service;
 
+import java.util.List;
+
 import model.Adventurer;
 import model.Case;
 import model.Map;
+import model.Movement;
 
 /**
  * ***************************************************************<br>
  * <b>iGDA - Projet MadreDeDios</b><br>
- * <b>TYPE</b> :  Shifting<br>
- * <b>NOM</b> : Shifting.java<br>
+ * <b>TYPE</b> :  MovementService<br>
+ * <b>NOM</b> : MovementService.java<br>
  * <b>SUJET</b> : <br>
  * <b>COMMENTAIRE</b> : <br>
  * **************************************************************
@@ -19,16 +22,7 @@ import model.Map;
  * @author romain.lapicardise
  * @version $Revision: 1.0 $ $Date: 1 mars 2024 16:19:45 $
  */
-public class Shifting {
-	
-	/**
-	 * Constants of shifting indications
-	 */
-	static final char CHAR_FORWARD = 'A';
-
-	static final char CHAR_LEFT = 'G';
-
-	static final char CHAR_RIGHT = 'D';
+public class MovementService {
 	
 	/**
 	 * Constants of orientations
@@ -44,7 +38,7 @@ public class Shifting {
 	/**
 	 * Constructor
 	 */
-	public Shifting() {
+	public MovementService() {
 		
 	}
 
@@ -53,30 +47,28 @@ public class Shifting {
 	 * @param shifts
 	 * @throws Exception 
 	 */
-	public static void move(Map map, Adventurer adventurer) throws Exception {
-        for (char shift : adventurer.getShifts()) {
-            switch (shift) {
-                case CHAR_FORWARD:
-                    moveForward(map, adventurer);
-                    break;
-                case CHAR_LEFT:
-                    turnLeft(adventurer);
-                    break;
-                case CHAR_RIGHT:
-                    turnRight(adventurer);
-                    break;
-                default:
-                	throw new Exception("Move incorrect");
-            }
-        }
-    }
+	public static void move(Map map, List<Adventurer> adventurers, Adventurer adventurer, Movement movement) throws Exception {
+		switch (movement) {
+		case FORWARD:
+			moveForward(map, adventurer, adventurers);
+			break;
+		case LEFT:
+			turnLeft(adventurer);
+			break;
+		case RIGHT:
+			turnRight(adventurer);
+			break;
+		default:
+			throw new Exception("Move incorrect");
+		}
+	}
 	
 	/**
 	 * Method to move forward
 	 * @param adventurer
 	 * @throws Exception
 	 */
-	private static void moveForward(Map map, Adventurer adventurer) throws Exception {
+	private static void moveForward(Map map, Adventurer adventurer, List<Adventurer> adventurers) throws Exception {
 		int newX = adventurer.getPosX();
         int newY = adventurer.getPosY();
 
@@ -97,13 +89,13 @@ public class Shifting {
         }
 
         // Check if the new coordinates are valid on the map
-        if (isValidPosition(map, newX, newY)) {
-            Case newCase = map.getCase(newX, newY);
-            if (!newCase.isMountain()) {
-                adventurer.setPosX(newX);
-                adventurer.setPosY(newY);
-                collectTreasure(newCase, adventurer);
-            }
+        if (isValidPosition(map, newX, newY) && getAdventurerOfThisCase(adventurers, newX, newY) == null) {
+        	Case newCase = map.getCase(newX, newY);
+        	if (!newCase.isMountain()) {
+        		adventurer.setPosX(newX);
+        		adventurer.setPosY(newY);
+        		collectTreasure(newCase, adventurer);
+        	}
         }
     }
 
@@ -164,6 +156,21 @@ public class Shifting {
      */
     private static boolean isValidPosition(Map map, int x, int y) {
         return x >= 0 && x < map.getWidth() && y >= 0 && y < map.getHeight();
+    }
+    
+    /**
+     * Check if there is an adventurer on the specified position.
+     * @param x The X position to check.
+     * @param y The Y position to check.
+     * @return The adventurer if there is an adventurer, null otherwise.
+     */
+    public static Adventurer getAdventurerOfThisCase(List<Adventurer> adventurers, int x, int y) {
+        for (Adventurer adventurer : adventurers) {
+            if (adventurer.getPosX() == x && adventurer.getPosY() == y) {
+                return adventurer;
+            }
+        }
+        return null;
     }
 
     /**

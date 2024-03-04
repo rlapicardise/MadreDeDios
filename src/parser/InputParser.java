@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.Adventurer;
 import model.Map;
+import model.Movement;
 
  /**
  * ***************************************************************<br>
@@ -25,7 +26,7 @@ import model.Map;
 public class InputParser {
 	
 	/**
-	 * Consatnts of inputs symbols
+	 * Constants of inputs symbols
 	 */
 	static final char CHAR_ADVENTURER = 'A';
 
@@ -34,6 +35,15 @@ public class InputParser {
 	static final char CHAR_MOUNTAIN = 'M';
 
 	static final char CHAR_TREASURE = 'T';
+	
+	/**
+	 * Constants of shifting indications
+	 */
+	static final char CHAR_FORWARD = 'A';
+
+	static final char CHAR_LEFT = 'G';
+
+	static final char CHAR_RIGHT = 'D';
 	
 	/**
 	 * Constructor
@@ -127,15 +137,47 @@ public class InputParser {
      * @param parts
      * @return
      */
+    /**
+     * Parser d'un aventurier
+     * @param parts Les parties de la ligne de données correspondant à l'aventurier
+     * @return Un objet Adventurer avec les informations parsées
+     */
     private static Adventurer parseAdventurer(String[] parts) {
         String nom = parts[1];
         int x = Integer.parseInt(parts[2]);
         int y = Integer.parseInt(parts[3]);
         char orientation = parts[4].charAt(0);
-        List<Character> mouvements = new ArrayList<>();
-        for (char c : parts[5].toCharArray()) {
-            mouvements.add(c);
+        String sequence = parts[5];
+
+        // Mapper chaque caractère de la séquence de mouvements à l'énumération Movement correspondante
+        List<Movement> movements = mapMovements(sequence);
+
+        return new Adventurer(nom, x, y, orientation, movements);
+    }
+
+    /**
+     * Mapper chaque caractère de la séquence de mouvements à l'énumération Movement correspondante
+     * @param sequence La séquence de mouvements à mapper
+     * @return Une liste d'énumérations Movement représentant les mouvements
+     */
+    private static List<Movement> mapMovements(String sequence) {
+        List<Movement> movements = new ArrayList<>();
+        for (char c : sequence.toCharArray()) {
+            switch (c) {
+                case CHAR_FORWARD:
+                    movements.add(Movement.FORWARD);
+                    break;
+                case CHAR_LEFT:
+                    movements.add(Movement.LEFT);
+                    break;
+                case CHAR_RIGHT:
+                    movements.add(Movement.RIGHT);
+                    break;
+                default:
+                    // Gérer les caractères invalides ou inconnus
+                    break;
+            }
         }
-        return new Adventurer(nom, x, y, orientation, mouvements);
+        return movements;
     }
 }

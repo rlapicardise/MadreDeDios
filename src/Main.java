@@ -3,9 +3,10 @@ import java.util.List;
 
 import model.Adventurer;
 import model.Map;
+import model.Movement;
 import parser.InputParser;
 import parser.OutputParser;
-import service.Shifting;
+import service.MovementService;
 
 /**
  * ***************************************************************<br>
@@ -41,13 +42,58 @@ public class Main {
 			}
 		}
 		
-		// Shifting of the adventurers
-		for (Adventurer adventurer : adventurers) {
-			Shifting.move(map, adventurer);
-		}
+		// Iterate through each movement turn
+        for (int turn = 0; turn < getMaximumTurns(adventurers); turn++) {
+            // Move each adventurer for the current turn
+        	for (Adventurer adventurer : adventurers) {
+        		if (turn >= adventurer.getMovements().size()) {
+        			// The adventurer finished his movements
+        			continue;
+        		}
+        		Movement move = adventurer.getMovements().get(turn);
+        		// Process the movement for the current adventurer
+        		MovementService.move(map, adventurers, adventurer, move);
+        		displayCurrentRepresentation(map, adventurers);
+        	}
+        }
 
 		// Process write output file
 		OutputParser.parseOutput(map, adventurers, "output.txt");
+	}
+	
+	/**
+	 * Find the maximum number of movements among all adventurers
+	 * @param adventurers
+	 * @return
+	 */
+	private static int getMaximumTurns(List<Adventurer> adventurers) {
+        int maxTurns = 0;
+        for (Adventurer adventurer : adventurers) {
+            maxTurns = Math.max(maxTurns, adventurer.getMovements().size());
+        }
+        return maxTurns;
+    }
+	
+	/**
+	 * @param map
+	 * @param adventurers
+	 */
+	private static void displayCurrentRepresentation(Map map, List<Adventurer> adventurers) {
+		for (int y=0 ; y<map.getHeight() ; y++) {
+			for (int x=0 ; x<map.getWidth() ; x++) {
+        		if(map.getCase(x,y).isMountain()) {
+        			System.out.print(" M ");
+        		} else if (MovementService.getAdventurerOfThisCase(adventurers, x, y) != null) {
+        			System.out.print(" "+MovementService.getAdventurerOfThisCase(adventurers, x, y).getOrientation()+" ");
+        		} else if (map.getCase(x,y).getNumberOfTreasures() > 0) {
+        			System.out.print(" "+map.getCase(x,y).getNumberOfTreasures()+" ");
+        		} else {
+        			System.out.print(" . ");
+        		}
+        	}
+			System.out.println();
+    	}
+		System.out.println();
 	}
 
 }
