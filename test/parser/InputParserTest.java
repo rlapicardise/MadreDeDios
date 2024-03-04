@@ -1,3 +1,4 @@
+package parser;
 /**
  * 
  */
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import model.Adventurer;
 import model.Map;
-import parser.InputParser;
 
 /**
  * ***************************************************************<br>
